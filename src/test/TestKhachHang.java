@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class TestKhachHang {static ArrayList<KhachHang> dsKH = new ArrayList<KhachHang>();
     public static void menu() {
-        try {
+
             System.out.println("1. Nhập khách hàng");
             System.out.println("2. In danh sách khách hàng");
             System.out.println("3. Tìm kiếm khách hàng theo đầu số");
@@ -18,7 +18,11 @@ public class TestKhachHang {static ArrayList<KhachHang> dsKH = new ArrayList<Kha
             System.out.println("8. Thoát");
             int chon = 0;
             System.out.println("Mời bạn chọn chức năng [1->8]");
+        try {
             chon = new Scanner(System.in).nextInt();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
             switch (chon) {
                 case 1:
                     xuLyNhap();
@@ -45,16 +49,11 @@ public class TestKhachHang {static ArrayList<KhachHang> dsKH = new ArrayList<Kha
                     xuLyThoat();
                     break;
                 default:
+                    System.out.println("Bạn nhập sai, mời chọn lại");
                     break;
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("Bạn nhập sai, mời chọn lại");
-        }
     }
-
     public static void main(String[] args) {
-// TODO Auto-generated method stub
         while (true) {
             menu();
         }
@@ -77,16 +76,13 @@ public class TestKhachHang {static ArrayList<KhachHang> dsKH = new ArrayList<Kha
             kh.setMa(ma);
             kh.setTen(ten);
             kh.setPhone(phone);
-
             dsKH.add(kh);
         } catch (Exception ex) {
-// TODO: handle exception
             ex.printStackTrace();
         }
     }
     private static void xuLyXuat() {
         System.out.println("=============================");
-        System.out.println("Mã\tTên\t Phone");
         for(KhachHang kh:dsKH)
         {
             System.out.println(kh);
@@ -107,14 +103,13 @@ public class TestKhachHang {static ArrayList<KhachHang> dsKH = new ArrayList<Kha
 
     private static void xuLyDoc() {
         dsKH = SerializeFileFactory.docFile("d:\\dulieukhachhang.db");
-        System.out.println("Đã đọc file thành công");
+        xuLyXuat();
     }
-    private static void xuLyTim() {
+        private static void xuLyTim() {
         System.out.println("=============================");
         System.out.println("Bạn muốn tìm đầu số nào");
         String phone = new Scanner(System.in).next();
         System.out.println("Khách hàng có đầu số "+phone+" là:");
-        System.out.println("Mã\tTên\t Phone");
         for(KhachHang kh: dsKH)
         {
             if(kh.getPhone().startsWith(phone))//kiểm tra những ký tự đầu
@@ -127,6 +122,7 @@ public class TestKhachHang {static ArrayList<KhachHang> dsKH = new ArrayList<Kha
     private static void xuLySapXep() {
         Collections.sort(dsKH);
         System.out.println("Đã sắp xếp số điện thoại xong rồi");
+        xuLyXuat();
     }
     private static void xuLyThongKe() {
         int n = 0;

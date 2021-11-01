@@ -37,6 +37,7 @@ public class SerializeFileFactory {
             dsKH = (ArrayList<KhachHang>) data;
             ois.close();
             fis.close();
+            System.out.println("Đọc Thành công");
             return dsKH;
         }
         catch (Exception ex)
